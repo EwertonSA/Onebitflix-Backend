@@ -24,10 +24,12 @@ export const categoryService = {
       include: {
         association: 'courses',
         attributes: ['id', 'name', 'synopsis', ['thumbnail_url', 'thumbnailUrl']],
-      }
+      },
+      
     })
 
     return categoryWithCourses
-  }
+  },
+  
 
 }
