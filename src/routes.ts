@@ -3,6 +3,7 @@ import { categoriesController } from './controllers/categoriesController'
 import { coursesController } from './controllers/courseController'
 import { episodesController } from './controllers/episodeController'
 import { authController } from './controllers/authController'
+import { ensureAuthViaQuery } from './middlwares/auth'
 
 export const router = express.Router()
 router.post('/auth/login', authController.login)
@@ -16,3 +17,4 @@ router.get('/courses/search', coursesController.search)
 router.get('/courses/:id',coursesController.show)
 
 router.get("/episodes/stream",episodesController.stream)
+router.get('/episodes/stream', ensureAuthViaQuery, episodesController.stream)
