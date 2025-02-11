@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 
 import { episodeService } from '../services/episodeService'
+import { AuthenticatedRequest } from '../middlwares/auth'
 
 export const episodesController = {
     stream:async(req:Request,res:Response)=>{
@@ -15,4 +16,37 @@ episodeService.streamEpisodeToResponse(res, videoUrl ,range)
     }
 }
 },
+getWatch:async(req:AuthenticatedRequest,res:Response)=>{
+    const userId=req.user!.id
+    const episodeid=req.params.id
+    try {
+        const watch=await episodeService.getWatch(userId, Number(episodeid))
+        return res.json(watch)
+    } catch (error) {
+        if(error instanceof Error){
+            return res.status(400).json({message:error.message})
+        }
+    }
+
+},
+setWatch:async(req:AuthenticatedRequest,res:Response)=>{
+    const userId=req.user!.id
+    const episodeId=Number(req.params.id)
+    const {seconds}=req.body
+    try {
+        const watch=await episodeService.setWatch({
+            userId,
+            episodeId,
+            seconds
+        })
+        return res.json(watch)
+    } catch (error) {
+        if(error instanceof Error){
+            return res.status(400).json({message:error.message})
+        }
+    }
+
+}
+
+
 }
