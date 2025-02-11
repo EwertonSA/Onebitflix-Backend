@@ -20,4 +20,5 @@ router.get('/courses/:id', ensureauth,coursesController.show)
 
 router.get('/episodes/stream', ensureAuthViaQuery, episodesController.stream)
 
+router.get('/favorites', ensureauth, favoritesController.index)
 router.post('/favorites',ensureauth, favoritesController.save)
