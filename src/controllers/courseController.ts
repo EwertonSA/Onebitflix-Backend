@@ -42,6 +42,16 @@ export const coursesController={
           }
         }
       },
+      topTen:async(req:Request,res:Response)=>{
+        try {
+          const topTen=await courseService.getTenByLikes()
+          return res.json(topTen)
+        } catch (err) {
+          if (err instanceof Error) {
+            return res.status(400).json({ message: err.message })
+          }
+        }
+      },
       search: async (req: Request, res: Response) => {
         const { name } = req.query
         const [page, perPage] = getPaginationParams(req.query)
