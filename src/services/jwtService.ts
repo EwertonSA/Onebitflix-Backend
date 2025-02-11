@@ -1,15 +1,12 @@
-import jwt from 'jsonwebtoken'
+import jwt, { SignOptions } from 'jsonwebtoken'
 
 const secret = 'chave-jwt'
 
 export const jwtService={
-    signToken:(payload:string|object|Buffer,expiration:string)=>{
-        console.log('Payload recebido:', payload);
-        return jwt.sign(payload,secret,{
-            expiresIn:expiration
-        })
-    },
+    signToken: (payload: string | object | Buffer, expiration: string): string => {
+        return jwt.sign(payload, secret, { expiresIn: expiration } as SignOptions)
+      },
     verifyToken: (token:string,callbackfn:jwt.VerifyCallback)=>{
         jwt.verify(token,secret,callbackfn)
     }
-}
+}   

@@ -3,7 +3,7 @@ import { userService } from '../services/userService'
 import { jwtService } from '../services/jwtService'
 
 export const authController = {
-  // POST /auth/register
+ 
   register: async (req: Request, res: Response) => {
     const { firstName, lastName, phone, birth, email, password } = req.body
 
