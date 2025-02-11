@@ -33,4 +33,6 @@ router.post('/likes',ensureauth, likesController.save)
 router.delete('/likes/:id',ensureauth, likesController.delete)
 
 router.get('/users/current', ensureauth, userController.show)
+
 router.get("/users/current/watching", ensureauth, userController.watching)
+router.put("/users/current/",ensureauth, userController.update)
