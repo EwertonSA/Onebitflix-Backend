@@ -26,3 +26,4 @@ router.post('/favorites',ensureauth, favoritesController.save)
 router.delete('/favorites/:id',ensureauth,favoritesController.delete)
 
 router.post('/likes',ensureauth, likesController.save)
+router.delete('/likes/:id',ensureauth, likesController.delete)
