@@ -17,5 +17,4 @@ router.get('/courses/newest', coursesController.newest)
 router.get('/courses/search',ensureauth ,coursesController.search)
 router.get('/courses/:id', ensureauth,coursesController.show)
 
-router.get("/episodes/stream",episodesController.stream)
 router.get('/episodes/stream', ensureAuthViaQuery, episodesController.stream)
