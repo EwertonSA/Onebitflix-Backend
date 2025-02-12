@@ -4,3 +4,5 @@ public/thumbnails
 .adminjs
 dist/
 .env
+src/config/sequelizeCli.js
+src/database/index.ts
