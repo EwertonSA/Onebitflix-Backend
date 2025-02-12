@@ -1,23 +1,21 @@
-import express from 'express'
-import { database } from './database'
-import { adminJs, adminJsRouter } from './adminjs'
-import { router } from './routes'
-import cors from 'cors'
+import dotenv from 'dotenv';
+dotenv.config()
 
-const app = express()
-app.use(cors())   
+import express from 'express'
+import cors from 'cors'
+import { database } from './database'
+import { adminjs, adminjsRouter } from './adminjs'
+import { router } from './routes'
+const app= express()
+app.use(cors())
+app.use(adminjs.options.rootPath,adminjsRouter)
 app.use(express.json())
 app.use(express.static('public'))
-
-app.use(adminJs.options.rootPath, adminJsRouter)
 app.use(router)
-
-const PORT = process.env.port || 3000
-
-app.listen(PORT, async () => {
-  await database.authenticate().then(() => {
-    console.log('DB connection successfull.')
-  })
-
-  console.log(`Server started successfuly at port ${PORT}.`)
+const PORT =process.env.PORT || 3000
+app.listen(PORT,()=>{
+    database.authenticate().then(()=>{
+        console.log( 'DB connection successfull')
+    })
+    console.log(`server started seccessfuly at port ${PORT}`)
 })

@@ -1,37 +1,40 @@
-import AdminJs from 'adminjs'
-import AdminJsExpress from '@adminjs/express'
-import AdminJsSequelize from '@adminjs/sequelize'
-import { database } from '../database'
-import { adminJsResources } from './resources'
-import { Category, Course, Episode, User } from '../models'
-import bcrypt from 'bcrypt'
-import { locale } from './locale'
-import { brandingOptions } from './branding'
-import { dashboardOptions } from './dashboard'
-import { authtenticationOptions } from './authenctication'
+import AdminJS from "adminjs";
+import AdminJSExpress from '@adminjs/express';
+import AdminJSSequelize from '@adminjs/sequelize';
+import { database } from "../database";
+
+import session from "express-session"
+import connectSession from 'connect-session-sequelize'
 
 
-AdminJs.registerAdapter(AdminJsSequelize)
+import { brandingOptions } from "./branding";
+import { dashboardOptions } from "./dashboard";
+import { adminJsResources } from "./resources";
+import { locale } from "./locale";
+import { ADMINJS_COOKIE_PASSWORD } from "../config/environment";
+import { authtenticationOptions } from "./authenctication";
 
-export const adminJs = new AdminJs({
-  databases: [database],
-  resources:adminJsResources,
-  rootPath: '/admin',
-  locale:locale,
-  dashboard:dashboardOptions,
-  branding: 
-   brandingOptions
-    
-  }
-)
 
-export const adminJsRouter = AdminJsExpress.buildAuthenticatedRouter(
 
-  adminJs,
-  authtenticationOptions,
-  null,
-  {
-resave:false,
-saveUninitialized:false
-}
-)
+const SequelizeStore= connectSession(session.Store)
+const store=new SequelizeStore({db:database})
+store.sync()
+AdminJS.registerAdapter(AdminJSSequelize)
+export const adminjs= new AdminJS({
+    databases:[database],
+    rootPath:'/admin',
+    resources:adminJsResources,
+    branding:brandingOptions
+    ,
+            locale:locale,
+    dashboard:dashboardOptions
+
+})
+export  const adminjsRouter= AdminJSExpress.buildAuthenticatedRouter(adminjs,authtenticationOptions,
+null,{
+  resave:false
+, 
+saveUninitialized:false,
+store:store,
+secret:ADMINJS_COOKIE_PASSWORD
+})
