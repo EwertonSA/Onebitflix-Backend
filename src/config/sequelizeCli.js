@@ -12,4 +12,4 @@ module.exports={
         dialect:'postgres'
     }
     }
-    console.log(DATABASE_URL);   
+    console.log(process.env.DATABASE_URL);
