@@ -10,7 +10,7 @@ module.exports = {
     dialect: 'postgres',
     dialectOptions: {
       ssl: {
-        require: false, // Necessário para garantir que a conexão será feita via SSL
+        require: true, // Necessário para garantir que a conexão será feita via SSL
         rejectUnauthorized: false, // Defina como "false" se o certificado não for verificado (comum em alguns bancos)
       },
     },
