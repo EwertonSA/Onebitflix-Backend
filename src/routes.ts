@@ -10,7 +10,7 @@ import { userController } from './controllers/userController'
 
 export const router = express.Router()
 router.get('/', (req, res) => {
-    res.redirect('/admin/login');  
+    res.redirect('/admin/login');  // Redireciona para o login do admin
   });
 router.post('/auth/login', authController.login)
 router.post('/auth/register',authController.register)
