@@ -8,14 +8,15 @@ module.exports = {
   production: {
     url: process.env.DATABASE_URL,
     dialect: 'postgres',
-    dialectOptions: {
+    dialectOptions: process.env.NODE_ENV === 'production' ? {
       ssl: {
-        require: true, // Necessário para garantir que a conexão será feita via SSL
-        rejectUnauthorized: false, // Defina como "false" se o certificado não for verificado (comum em alguns bancos)
+        require: true,
+        rejectUnauthorized: false, // Permite certificados autoassinados
       },
-    },
+    } : {},
   },
 };
+
 client.connect()
   .then(() => {
     console.log("Conectado ao banco de dados!");
