@@ -9,6 +9,9 @@ import { likesController } from './controllers/likesController'
 import { userController } from './controllers/userController'
 
 export const router = express.Router()
+router.get('/', (req, res) => {
+    res.redirect('/admin/login');  
+  });
 router.post('/auth/login', authController.login)
 router.post('/auth/register',authController.register)
 
