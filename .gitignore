@@ -4,3 +4,6 @@ public/thumbnails
 .adminjs
 dist/
 .env
+.tmp/
+tmp/
+*:Zone.Identifier
